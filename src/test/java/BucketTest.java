@@ -16,14 +16,14 @@ import javax.json.JsonReader;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BucketTest {
+    BasketSplitter basketSplitter;
     @BeforeEach
     public void setUp() {
         String pathToConfig = "src/main/resources/config.json";
-        BasketSplitter basketSplitter = new BasketSplitter(pathToConfig);
+        basketSplitter = new BasketSplitter(pathToConfig);
     }
     @Test
     public void testSplit() {
-        BasketSplitter bs = new BasketSplitter("src/main/resources/config.json");
 
         JsonReader reader = null;
         try {
@@ -38,7 +38,7 @@ public class BucketTest {
             stringList.add(jsonArray.getString(i));
         }
 
-        Map<String,List<String>> map = bs.split(stringList);
+        Map<String,List<String>> map = basketSplitter.split(stringList);
         List<String> pom = map.keySet().stream().toList();
 
         assertEquals(map.get(pom.getFirst()).size(), 5);
@@ -46,7 +46,6 @@ public class BucketTest {
     }
     @Test
     public void testSplit2() {
-        BasketSplitter bs = new BasketSplitter("src/main/resources/config.json");
 
         JsonReader reader = null;
         try {
@@ -61,7 +60,7 @@ public class BucketTest {
             stringList.add(jsonArray.getString(i));
         }
 
-        Map<String,List<String>> map = bs.split(stringList);
+        Map<String,List<String>> map = basketSplitter.split(stringList);
         List<String> pom = map.keySet().stream().toList();
 
         assertEquals(map.get(pom.getFirst()).size(), 3);
